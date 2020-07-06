@@ -22,7 +22,7 @@ export interface AssertionErrorOptions {
 }
 
 export interface AssertionErrorCtor {
-  new(options: string | AssertionErrorOptions): AssertionError;
+  new (options: string | AssertionErrorOptions): AssertionError;
 }
 
 export type AssertErrorFn = (err: any) => void;
@@ -75,7 +75,6 @@ export interface Assert {
    */
   equal<T>(actual: T, expected: T, message?: AssertMessage): void;
 
-
   /**
    * Asserts non-strict inequality (==) of actual and expected.
    *
@@ -96,7 +95,6 @@ export interface Assert {
    */
   strictEqual<T>(actual: T, expected: T, message?: AssertMessage): void;
 
-
   /**
    * Asserts non-strict inequality (==) of actual and expected.
    *
@@ -108,7 +106,6 @@ export interface Assert {
   notStrictEqual<T>(actual: T, expected: T, message?: AssertMessage): void;
 
   fail(message?: AssertMessage): void;
-
 
   /**
    * Asserts that fn will throw an error.
@@ -125,7 +122,11 @@ export interface Assert {
    * @param expected  Potential expected message match or error constructor.
    * @param message   Message to display on error.
    */
-  throws(fn: Function, expected: RegExp | Error | AssertErrorFn | Function, message?: AssertMessage): void;
+  throws(
+    fn: Function,
+    expected: RegExp | Error | AssertErrorFn | Function,
+    message?: AssertMessage,
+  ): void;
 
   /**
    * Asserts that fn will not throw an error.
@@ -142,7 +143,11 @@ export interface Assert {
    * @param expected   Potential expected error constructor.
    * @param message   Message to display on error.
    */
-  doesNotThrow(fn: Function, expected: RegExp | Error | AssertErrorFn | Function, message?: AssertMessage): void;
+  doesNotThrow(
+    fn: Function,
+    expected: RegExp | Error | AssertErrorFn | Function,
+    message?: AssertMessage,
+  ): void;
 
   /**
    * Asserts that fn will reject with an error.
@@ -159,7 +164,11 @@ export interface Assert {
    * @param expected  Potential expected message match or error constructor.
    * @param message   Message to display on error.
    */
-  rejects(fn: Function, expected: RegExp | Error | AssertErrorFn | Function, message?: AssertMessage): Promise<any>;
+  rejects(
+    fn: Function,
+    expected: RegExp | Error | AssertErrorFn | Function,
+    message?: AssertMessage,
+  ): Promise<any>;
 
   /**
    * Asserts that fn will not reject with an error.
@@ -176,7 +185,11 @@ export interface Assert {
    * @param expected   Potential expected error constructor.
    * @param message   Message to display on error.
    */
-  doesNotReject(fn: Function, expected: RegExp | Error | AssertErrorFn | Function, message?: AssertMessage): Promise<any>;
+  doesNotReject(
+    fn: Function,
+    expected: RegExp | Error | AssertErrorFn | Function,
+    message?: AssertMessage,
+  ): Promise<any>;
 
   /**
    * Asserts if value is not a false value, and throws if it is a true value.
@@ -229,13 +242,31 @@ export interface Assert {
    */
   notDeepStrictEqual<T>(actual: T, expected: T, message?: AssertMessage): void;
 
-  bufferEqual(actual: Buffer, expected: Buffer | string, enc?: string, message?: AssertMessage): void;
+  bufferEqual(
+    actual: Buffer,
+    expected: Buffer | string,
+    enc?: string,
+    message?: AssertMessage,
+  ): void;
 
-  bufferEqual(actual: Buffer, expected: Buffer | string, message?: AssertMessage): void;
+  bufferEqual(
+    actual: Buffer,
+    expected: Buffer | string,
+    message?: AssertMessage,
+  ): void;
 
-  notBufferEqual(actual: Buffer, expected: Buffer | string, enc?: string, message?: AssertMessage): void;
+  notBufferEqual(
+    actual: Buffer,
+    expected: Buffer | string,
+    enc?: string,
+    message?: AssertMessage,
+  ): void;
 
-  notBufferEqual(actual: Buffer, expected: Buffer | string, message?: AssertMessage): void;
+  notBufferEqual(
+    actual: Buffer,
+    expected: Buffer | string,
+    message?: AssertMessage,
+  ): void;
 
   enforce<T>(value: T, name?: string, type?: string): void;
 

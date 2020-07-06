@@ -18,7 +18,11 @@ function makeObj(...args: any[]): {[name: string]: any} {
     arraybuffer: new Uint8Array([1, 2, 3]).buffer,
     uint8array: new Uint8Array([1, 2, 3]),
     float32array: new Float32Array([1, 2, 3]),
-    map: new Map([[1, 'a'], [2, 'b'], [3, 'c']]),
+    map: new Map([
+      [1, 'a'],
+      [2, 'b'],
+      [3, 'c'],
+    ]),
     set: new Set([1, 2, 3]),
     array: [1, 2, 3],
     object: {a: 1, b: 2, c: 3},
@@ -35,8 +39,7 @@ function makeArr() {
     obj.two = makeObj();
     obj.three = makeObj();
 
-    if (i > 0)
-      obj.prev = out[i - 1];
+    if (i > 0) obj.prev = out[i - 1];
 
     out.push(obj);
   }
@@ -72,7 +75,7 @@ function notEqual(a: any, b: any) {
   });
 }
 
-describe('Assert', function() {
+describe('Assert', function () {
   it('should have sanity check', async () => {
     let err1 = null;
     let err2 = null;
@@ -87,16 +90,14 @@ describe('Assert', function() {
       throw new Error();
     });
 
-    if (!called1)
-      throw new Error('Failed throws sanity check.');
+    if (!called1) throw new Error('Failed throws sanity check.');
 
     await assert.rejects(async () => {
       called2 = true;
       throw new Error();
     });
 
-    if (!called2)
-      throw new Error('Failed rejects sanity check.');
+    if (!called2) throw new Error('Failed rejects sanity check.');
 
     try {
       assert(false);
@@ -104,28 +105,23 @@ describe('Assert', function() {
       err1 = e;
     }
 
-    if (!err1)
-      throw new Error('Failed ok sanity check.');
+    if (!err1) throw new Error('Failed ok sanity check.');
 
     try {
-      assert.throws(() => {
-      });
+      assert.throws(() => {});
     } catch (e) {
       err2 = e;
     }
 
-    if (!err2)
-      throw new Error('Failed throws sanity check.');
+    if (!err2) throw new Error('Failed throws sanity check.');
 
     try {
-      await assert.rejects(async () => {
-      });
+      await assert.rejects(async () => {});
     } catch (e) {
       err3 = e;
     }
 
-    if (!err3)
-      throw new Error('Failed rejects sanity check.');
+    if (!err3) throw new Error('Failed rejects sanity check.');
   });
 
   it('should have environment', () => {
@@ -202,8 +198,7 @@ describe('Assert', function() {
     });
 
     assert.throws(() => {
-      assert.throws(() => {
-      });
+      assert.throws(() => {});
     });
 
     assert.throws(() => {
@@ -216,14 +211,20 @@ describe('Assert', function() {
       }, /foobaz/);
     });
 
-    assert.throws(() => {
-      throw new Error('foobar');
-    }, (e: string) => /foobar/.test(e));
+    assert.throws(
+      () => {
+        throw new Error('foobar');
+      },
+      (e: string) => /foobar/.test(e),
+    );
 
     assert.throws(() => {
-      assert.throws(() => {
-        throw new Error('foobar');
-      }, (e: string) => /foobaz/.test(e));
+      assert.throws(
+        () => {
+          throw new Error('foobar');
+        },
+        (e: string) => /foobaz/.test(e),
+      );
     });
 
     assert.throws(() => {
@@ -246,24 +247,36 @@ describe('Assert', function() {
       }, new RangeError('foobar'));
     });
 
-    assert.throws(() => {
-      throw new RangeError('foobar');
-    }, {message: 'foobar'});
+    assert.throws(
+      () => {
+        throw new RangeError('foobar');
+      },
+      {message: 'foobar'},
+    );
 
     assert.throws(() => {
-      assert.throws(() => {
-        throw new Error('foobar');
-      }, {message: 'foobaz'});
+      assert.throws(
+        () => {
+          throw new Error('foobar');
+        },
+        {message: 'foobaz'},
+      );
     });
 
-    assert.throws(() => {
-      throw new RangeError('foobar');
-    }, {message: /foobar/});
+    assert.throws(
+      () => {
+        throw new RangeError('foobar');
+      },
+      {message: /foobar/},
+    );
 
     assert.throws(() => {
-      assert.throws(() => {
-        throw new Error('foobar');
-      }, {message: /foobaz/});
+      assert.throws(
+        () => {
+          throw new Error('foobar');
+        },
+        {message: /foobaz/},
+      );
     });
   });
 
@@ -273,8 +286,7 @@ describe('Assert', function() {
     });
 
     await assert.rejects(async () => {
-      await assert.rejects(async () => {
-      });
+      await assert.rejects(async () => {});
     });
 
     await assert.rejects(async () => {
@@ -287,14 +299,20 @@ describe('Assert', function() {
       }, /foobaz/);
     });
 
-    await assert.rejects(async () => {
-      throw new Error('foobar');
-    }, (e: string) => /foobar/.test(e));
+    await assert.rejects(
+      async () => {
+        throw new Error('foobar');
+      },
+      (e: string) => /foobar/.test(e),
+    );
 
     await assert.rejects(async () => {
-      await assert.rejects(async () => {
-        throw new Error('foobar');
-      }, (e: string) => /foobaz/.test(e));
+      await assert.rejects(
+        async () => {
+          throw new Error('foobar');
+        },
+        (e: string) => /foobaz/.test(e),
+      );
     });
 
     await assert.rejects(async () => {
@@ -317,24 +335,36 @@ describe('Assert', function() {
       }, new RangeError('foobar'));
     });
 
-    await assert.rejects(async () => {
-      throw new RangeError('foobar');
-    }, {message: 'foobar'});
+    await assert.rejects(
+      async () => {
+        throw new RangeError('foobar');
+      },
+      {message: 'foobar'},
+    );
 
     await assert.rejects(async () => {
-      await assert.rejects(async () => {
-        throw new Error('foobar');
-      }, {message: 'foobaz'});
+      await assert.rejects(
+        async () => {
+          throw new Error('foobar');
+        },
+        {message: 'foobaz'},
+      );
     });
 
-    await assert.rejects(async () => {
-      throw new RangeError('foobar');
-    }, {message: /foobar/});
+    await assert.rejects(
+      async () => {
+        throw new RangeError('foobar');
+      },
+      {message: /foobar/},
+    );
 
     await assert.rejects(async () => {
-      await assert.rejects(async () => {
-        throw new Error('foobar');
-      }, {message: /foobaz/});
+      await assert.rejects(
+        async () => {
+          throw new Error('foobar');
+        },
+        {message: /foobaz/},
+      );
     });
   });
 
@@ -439,19 +469,20 @@ describe('Assert', function() {
     notEqual(/a/, [/a/]);
     notEqual(/a/, {});
 
-    equal(new Uint8Array([1, 2, 3]).buffer,
-      new Uint8Array([1, 2, 3]).buffer);
-    notEqual(new Uint8Array([1, 2, 3, 4]).buffer,
-      new Uint8Array([1, 2, 3]).buffer);
-    notEqual(new Uint8Array([1, 2]).buffer,
-      new Uint8Array([1, 2, 3]).buffer);
-    notEqual(new Uint8Array([2, 2, 3]).buffer,
-      new Uint8Array([1, 2, 3]).buffer);
+    equal(new Uint8Array([1, 2, 3]).buffer, new Uint8Array([1, 2, 3]).buffer);
+    notEqual(
+      new Uint8Array([1, 2, 3, 4]).buffer,
+      new Uint8Array([1, 2, 3]).buffer,
+    );
+    notEqual(new Uint8Array([1, 2]).buffer, new Uint8Array([1, 2, 3]).buffer);
+    notEqual(
+      new Uint8Array([2, 2, 3]).buffer,
+      new Uint8Array([1, 2, 3]).buffer,
+    );
     notEqual(new Uint8Array([1, 2, 3]).buffer, [1, 2, 3]);
     notEqual(new Uint8Array([1, 2, 3]).buffer, '1,2,3');
     notEqual(new Uint8Array([1, 2, 3]).buffer, {});
-    notEqual(new Uint8Array([1, 2, 3]).buffer,
-      {0: 1, 1: 2, 2: 3, length: 3});
+    notEqual(new Uint8Array([1, 2, 3]).buffer, {0: 1, 1: 2, 2: 3, length: 3});
 
     equal(new Uint8Array([1, 2, 3]), new Uint8Array([1, 2, 3]));
     notEqual(new Uint8Array([1, 2, 3, 4]), new Uint8Array([1, 2, 3]));
@@ -460,8 +491,7 @@ describe('Assert', function() {
     notEqual(new Uint8Array([1, 2, 3]), [1, 2, 3]);
     notEqual(new Uint8Array([1, 2, 3]), '1,2,3');
     notEqual(new Uint8Array([1, 2, 3]), {});
-    notEqual(new Uint8Array([1, 2, 3]),
-      {0: 1, 1: 2, 2: 3, length: 3});
+    notEqual(new Uint8Array([1, 2, 3]), {0: 1, 1: 2, 2: 3, length: 3});
 
     equal(new Float32Array([1, 2, 3]), new Float32Array([1, 2, 3]));
     notEqual(new Float32Array([1, 2, 3, 4]), new Float32Array([1, 2, 3]));
@@ -469,8 +499,7 @@ describe('Assert', function() {
     notEqual(new Float32Array([2, 2, 3]), new Float32Array([1, 2, 3]));
     notEqual(new Float32Array([1, 2, 3]), [1, 2, 3]);
     notEqual(new Float32Array([1, 2, 3]), '1,2,3');
-    notEqual(new Float32Array([1, 2, 3]),
-      {0: 1, 1: 2, 2: 3, length: 3});
+    notEqual(new Float32Array([1, 2, 3]), {0: 1, 1: 2, 2: 3, length: 3});
     notEqual(new Float32Array([1, 2, 3]), {});
 
     /* eslint-disable */
@@ -480,16 +509,82 @@ describe('Assert', function() {
     notEqual(arguments, {});
     /* eslint-enable */
 
-    equal(new Map([[1, 'a'], [2, 'b']]), new Map([[1, 'a'], [2, 'b']]));
-    notEqual(new Map([[1, 'b'], [2, 'b']]), new Map([[1, 'a'], [2, 'b']]));
-    notEqual(new Map([[3, 'a'], [2, 'b']]), new Map([[1, 'a'], [2, 'b']]));
-    notEqual(new Map([[1, 'a'], [2, 'b'], [3, 'c']]),
-      new Map([[1, 'a'], [2, 'b']]));
-    notEqual(new Map([[1, 'a'], [2, 'b']]), {1: 'a', 2: 'b'});
-    notEqual(new Map([[1, 'a'], [2, 'b']]), {1: 'a', 2: 'b', size: 2});
-    notEqual(new Map([[1, 'a'], [2, 'b']]), ['a', 'b']);
-    notEqual(new Map([[1, 'a'], [2, 'b']]), {size: 2});
-    notEqual(new Map([[1, 'a'], [2, 'b']]), {});
+    equal(
+      new Map([
+        [1, 'a'],
+        [2, 'b'],
+      ]),
+      new Map([
+        [1, 'a'],
+        [2, 'b'],
+      ]),
+    );
+    notEqual(
+      new Map([
+        [1, 'b'],
+        [2, 'b'],
+      ]),
+      new Map([
+        [1, 'a'],
+        [2, 'b'],
+      ]),
+    );
+    notEqual(
+      new Map([
+        [3, 'a'],
+        [2, 'b'],
+      ]),
+      new Map([
+        [1, 'a'],
+        [2, 'b'],
+      ]),
+    );
+    notEqual(
+      new Map([
+        [1, 'a'],
+        [2, 'b'],
+        [3, 'c'],
+      ]),
+      new Map([
+        [1, 'a'],
+        [2, 'b'],
+      ]),
+    );
+    notEqual(
+      new Map([
+        [1, 'a'],
+        [2, 'b'],
+      ]),
+      {1: 'a', 2: 'b'},
+    );
+    notEqual(
+      new Map([
+        [1, 'a'],
+        [2, 'b'],
+      ]),
+      {1: 'a', 2: 'b', size: 2},
+    );
+    notEqual(
+      new Map([
+        [1, 'a'],
+        [2, 'b'],
+      ]),
+      ['a', 'b'],
+    );
+    notEqual(
+      new Map([
+        [1, 'a'],
+        [2, 'b'],
+      ]),
+      {size: 2},
+    );
+    notEqual(
+      new Map([
+        [1, 'a'],
+        [2, 'b'],
+      ]),
+      {},
+    );
 
     equal(new Set([1, 2, 3]), new Set([1, 2, 3]));
     notEqual(new Set([4, 2, 3]), new Set([1, 2, 3]));
@@ -520,7 +615,13 @@ describe('Assert', function() {
     notEqual({a: 0, b: 2, c: 3}, {a: 1, b: 2, c: 3});
     notEqual({a: 1, b: 2, c: 3, d: 4}, {a: 1, b: 2, c: 3});
     notEqual({a: 1, b: 2}, {a: 1, b: 2, c: 3});
-    notEqual({a: 1, b: 2}, new Map([['a', 1], ['b', 2]]));
+    notEqual(
+      {a: 1, b: 2},
+      new Map([
+        ['a', 1],
+        ['b', 2],
+      ]),
+    );
     notEqual({a: 1, b: 2}, {});
     notEqual({a: 1, b: 2}, [1, 2]);
     notEqual({a: 1, b: 2}, 3);
@@ -637,11 +738,11 @@ describe('Assert', function() {
     assert.deepStrictEqual(a, b);
     assert.deepStrictEqual(b, a);
 
-    (new Uint8Array(a[1].arraybuffer))[2] = 8;
+    new Uint8Array(a[1].arraybuffer)[2] = 8;
     assert.notDeepStrictEqual(a, b);
     assert.notDeepStrictEqual(b, a);
 
-    (new Uint8Array(a[1].arraybuffer))[2] = 3;
+    new Uint8Array(a[1].arraybuffer)[2] = 3;
     assert.deepStrictEqual(a, b);
     assert.deepStrictEqual(b, a);
 
@@ -993,33 +1094,49 @@ describe('Assert', function() {
   });
 
   it('should test buffers', () => {
-    assert.bufferEqual(Buffer.from('010203', 'hex'),
-      Buffer.from('010203', 'hex'));
-    assert.notBufferEqual(Buffer.from('010203', 'hex'),
-      Buffer.from('01020304', 'hex'));
-    assert.notBufferEqual(Buffer.from('010203', 'hex'),
-      Buffer.from('0102', 'hex'));
-    assert.notBufferEqual(Buffer.from('010203', 'hex'),
-      Buffer.from('020203', 'hex'));
+    assert.bufferEqual(
+      Buffer.from('010203', 'hex'),
+      Buffer.from('010203', 'hex'),
+    );
+    assert.notBufferEqual(
+      Buffer.from('010203', 'hex'),
+      Buffer.from('01020304', 'hex'),
+    );
+    assert.notBufferEqual(
+      Buffer.from('010203', 'hex'),
+      Buffer.from('0102', 'hex'),
+    );
+    assert.notBufferEqual(
+      Buffer.from('010203', 'hex'),
+      Buffer.from('020203', 'hex'),
+    );
 
     assert.throws(() => {
-      assert.notBufferEqual(Buffer.from('010203', 'hex'),
-        Buffer.from('010203', 'hex'));
+      assert.notBufferEqual(
+        Buffer.from('010203', 'hex'),
+        Buffer.from('010203', 'hex'),
+      );
     });
 
     assert.throws(() => {
-      assert.bufferEqual(Buffer.from('010203', 'hex'),
-        Buffer.from('01020304', 'hex'));
+      assert.bufferEqual(
+        Buffer.from('010203', 'hex'),
+        Buffer.from('01020304', 'hex'),
+      );
     });
 
     assert.throws(() => {
-      assert.bufferEqual(Buffer.from('010203', 'hex'),
-        Buffer.from('0102', 'hex'));
+      assert.bufferEqual(
+        Buffer.from('010203', 'hex'),
+        Buffer.from('0102', 'hex'),
+      );
     });
 
     assert.throws(() => {
-      assert.bufferEqual(Buffer.from('010203', 'hex'),
-        Buffer.from('020203', 'hex'));
+      assert.bufferEqual(
+        Buffer.from('010203', 'hex'),
+        Buffer.from('020203', 'hex'),
+      );
     });
 
     assert.bufferEqual(Buffer.from('010203', 'hex'), '010203');
@@ -1060,26 +1177,32 @@ describe('Assert', function() {
     const c = Symbol('c');
     const d = Symbol('d');
 
-    equal({
-      [a]: 1,
-      [b]: 2,
-      [c]: 3,
-    }, {
-      [a]: 1,
-      [b]: 2,
-      [c]: 3,
-    });
+    equal(
+      {
+        [a]: 1,
+        [b]: 2,
+        [c]: 3,
+      },
+      {
+        [a]: 1,
+        [b]: 2,
+        [c]: 3,
+      },
+    );
 
-    notEqual({
-      [a]: 1,
-      [b]: 2,
-      [c]: 3,
-      [d]: 4,
-    }, {
-      [a]: 1,
-      [b]: 2,
-      [c]: 3,
-    });
+    notEqual(
+      {
+        [a]: 1,
+        [b]: 2,
+        [c]: 3,
+        [d]: 4,
+      },
+      {
+        [a]: 1,
+        [b]: 2,
+        [c]: 3,
+      },
+    );
   });
 
   it('should enforce type', () => {

@@ -1,6 +1,6 @@
 {
   "name": "@artlab/bsert",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "Minimal assert with type checking.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,6 +12,8 @@
     "release": "np",
     "build": "al-tsc",
     "build:full": "npm ci --ignore-scripts && npm run clean && npm run build",
+    "coverage": "al-nyc report --reporter=text-summary",
+    "precoverage": "npm test",
     "lint": "npm run prettier:check && npm run eslint",
     "lint:fix": "npm run eslint:fix && npm run prettier:fix",
     "eslint": "al-eslint --report-unused-disable-directives --cache .",
@@ -21,8 +23,11 @@
     "prettier:fix": "npm run prettier:cli -- --write",
     "format": "npm run prettier:fix",
     "clean": "al-clean dist *.tsbuildinfo",
-    "pretest": "npm run build",
-    "test": "al-mocha \"dist/__tests__/**/*.js\"",
+    "pretest": "npm run clean && npm run build",
+    "test": "al-nyc npm run mocha",
+    "test:ci": "al-nyc npm run mocha",
+    "posttest": "npm run lint",
+    "mocha": "al-mocha \"dist/__tests__/**/*.js\"",
     "unit": "al-mocha \"dist/__tests__/unit/**/*.js\""
   },
   "author": "ty <towyuan@outlook.com>",
@@ -31,9 +36,9 @@
     "bsert": "0.0.10"
   },
   "devDependencies": {
-    "@artlab/build": "^6.2.1",
-    "@artlab/eslint-config": "^8.1.1",
-    "@artlab/testlab": "^3.3.1",
+    "@artlab/build": "^6.2.2",
+    "@artlab/eslint-config": "^8.1.2",
+    "@artlab/testlab": "^3.3.2",
     "@types/debug": "^4.1.5",
     "@types/lodash": "^4.14.157",
     "@types/mocha": "^7.0.2",
@@ -50,7 +55,6 @@
     "!*/__tests__"
   ],
   "publishConfig": {
-    "access": "public",
     "registry": "https://registry.npmjs.org/"
   }
 }

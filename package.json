@@ -1,5 +1,5 @@
 {
-  "name": "@artlab/bsert",
+  "name": "@tib/bsert",
   "version": "0.1.2",
   "description": "Minimal assert with type checking.",
   "main": "dist/index.js",
@@ -10,42 +10,42 @@
   "scripts": {
     "prerelease": "cross-env CI=1 npm run build:full && npm run test && npm run lint",
     "release": "np",
-    "build": "al-tsc",
+    "build": "tib-tsc",
     "build:full": "npm ci --ignore-scripts && npm run clean && npm run build",
-    "coverage": "al-nyc report --reporter=text-summary",
+    "coverage": "tib-nyc report --reporter=text-summary",
     "precoverage": "npm test",
     "lint": "npm run prettier:check && npm run eslint",
     "lint:fix": "npm run eslint:fix && npm run prettier:fix",
-    "eslint": "al-eslint --report-unused-disable-directives --cache .",
+    "eslint": "tib-eslint --report-unused-disable-directives --cache .",
     "eslint:fix": "npm run eslint -- --fix",
-    "prettier:cli": "al-prettier \"**/*.ts\" \"**/*.js\" \"**/*.md\"",
+    "prettier:cli": "tib-prettier \"**/*.ts\" \"**/*.js\" \"**/*.md\"",
     "prettier:check": "npm run prettier:cli -- --check",
     "prettier:fix": "npm run prettier:cli -- --write",
     "format": "npm run prettier:fix",
-    "clean": "al-clean dist *.tsbuildinfo",
+    "clean": "tib-clean dist *.tsbuildinfo",
     "pretest": "npm run clean && npm run build",
-    "test": "al-nyc npm run mocha",
-    "test:ci": "al-nyc npm run mocha",
+    "test": "tib-nyc npm run mocha",
+    "test:ci": "tib-nyc npm run mocha",
     "posttest": "npm run lint",
-    "mocha": "al-mocha \"dist/__tests__/**/*.js\"",
-    "unit": "al-mocha \"dist/__tests__/unit/**/*.js\""
+    "mocha": "tib-mocha \"dist/__tests__/**/*.js\"",
+    "unit": "tib-mocha \"dist/__tests__/unit/**/*.js\""
   },
   "author": "ty <towyuan@outlook.com>",
   "license": "MIT",
   "dependencies": {
-    "bsert": "0.0.10"
+    "bsert": "^0.0.10"
   },
   "devDependencies": {
-    "@artlab/build": "^6.2.2",
-    "@artlab/eslint-config": "^8.1.2",
-    "@artlab/testlab": "^3.3.2",
+    "@tib/build": "^6.3.0",
+    "@tib/eslint-config": "^8.2.0",
+    "@tib/testlab": "^3.4.0",
     "@types/debug": "^4.1.5",
-    "@types/lodash": "^4.14.157",
-    "@types/mocha": "^7.0.2",
-    "@types/node": "^14.0.14",
+    "@types/lodash": "^4.14.158",
+    "@types/mocha": "^8.0.0",
+    "@types/node": "^14.0.25",
     "cross-env": "^7.0.2",
     "mocha": "^8.0.1",
-    "np": "^6.3.0"
+    "np": "^6.3.2"
   },
   "keywords": [],
   "files": [

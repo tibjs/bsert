@@ -33,7 +33,8 @@
   "author": "ty <towyuan@outlook.com>",
   "license": "MIT",
   "dependencies": {
-    "bsert": "^0.0.10"
+    "bsert": "^0.0.10",
+    "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@tib/build": "^6.3.0",
